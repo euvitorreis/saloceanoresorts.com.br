@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SAL OCEANO Resorts — Hospitalidade inspirada pelo oceano</title>
+  <meta name="description" content="Resort à beira-mar com suítes voltadas para o pôr do sol, spa SAL OCEANO Aromas, restaurante e arquitetura com pegada ecológica.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:     #0D1B2A;
+      --gold:     #C9973B;
+      --gold-lt:  #D4A959;
+      --gold-pale:#E8C87A;
+      --cream:    #F5F0E8;
+      --cream-dk: #EDE0C4;
+      --warm:     #FAFAF8;
+      --text:     #1A1A1A;
+      --muted:    #5A5A5A;
+      --serif:    'Cormorant Garamond', Georgia, serif;
+      --sans:     'Inter', system-ui, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); color: var(--text); background: var(--warm); overflow-x: hidden; }
+
+    /* ── NAV ─────────────────────────────── */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw; height: 70px;
+      transition: background .45s, backdrop-filter .45s;
+    }
+    #nav.scrolled {
+      background: rgba(13,27,42,.94);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    }
+    .nav-brand { display: flex; align-items: center; text-decoration: none; }
+    .nav-brand img { width: 140px; height: auto; }
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+    .nav-links a {
+      font-size: .67rem; font-weight: 400; letter-spacing: .17em;
+      text-transform: uppercase; color: rgba(255,255,255,.75);
+      text-decoration: none; transition: color .3s;
+    }
+    .nav-links a:hover { color: var(--gold-lt); }
+    .nav-cta {
+      font-size: .65rem; font-weight: 500; letter-spacing: .15em;
+      text-transform: uppercase; color: var(--navy);
+      background: var(--gold-lt); padding: .55rem 1.5rem;
+      text-decoration: none; transition: background .3s;
+    }
+    .nav-cta:hover { background: var(--gold-pale); }
+
+    /* ── HERO ────────────────────────────── */
+    .s-hero {
+      position: relative; height: 100vh; min-height: 660px;
+      display: flex; align-items: flex-end; overflow: hidden; z-index: 1;
+      background-color: #5C3610;
+      background-image:
+        linear-gradient(180deg, rgba(13,27,42,.15) 0%, rgba(13,27,42,.06) 40%, rgba(13,27,42,.78) 100%),
+        url('imagens/img-hero.png');
+      background-size: cover; background-position: center 35%;
+    }
+    .s-hero::after {
+      content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+      height: 110px; background: var(--cream);
+      clip-path: polygon(0 100%, 100% 35%, 100% 100%); z-index: 3;
+    }
+    .hero-inner { position: relative; z-index: 2; width: 100%; padding: 0 5vw 10vh; }
+    .hero-h1 {
+      font-family: var(--serif); font-size: clamp(3.2rem,7.5vw,7rem);
+      font-weight: 300; font-style: italic; color: #fff;
+      line-height: 1.03; max-width: 840px; margin-bottom: 1.8rem;
+    }
+    .hero-sub {
+      font-size: .74rem; font-weight: 300; letter-spacing: .28em;
+      color: rgba(255,255,255,.6); text-transform: uppercase;
+      line-height: 1.9; margin-bottom: 2.4rem;
+    }
+    .pills { display: flex; flex-wrap: wrap; gap: .65rem; margin-bottom: 2.8rem; }
+    .pill {
+      font-size: .61rem; letter-spacing: .17em; text-transform: uppercase;
+      color: rgba(255,255,255,.72); border: 1px solid rgba(255,255,255,.2);
+      padding: .37rem .88rem;
+    }
+    .btns { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .btn-gold {
+      display: inline-flex; align-items: center; gap: .75rem;
+      font-size: .7rem; font-weight: 500; letter-spacing: .15em;
+      text-transform: uppercase; color: var(--navy);
+      background: var(--gold-lt); padding: .95rem 2.2rem;
+      text-decoration: none; transition: background .3s, transform .25s;
+    }
+    .btn-gold:hover { background: var(--gold-pale); transform: translateY(-1px); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: .7rem;
+      font-size: .7rem; font-weight: 400; letter-spacing: .15em;
+      text-transform: uppercase; color: #fff;
+      border: 1px solid rgba(255,255,255,.4); padding: .95rem 2.2rem;
+      text-decoration: none; transition: border-color .3s, color .3s;
+    }
+    .btn-ghost:hover { border-color: var(--gold-lt); color: var(--gold-lt); }
+
+    /* ── SHARED ──────────────────────────── */
+    .lbl { font-size: .6rem; font-weight: 500; letter-spacing: .38em; text-transform: uppercase; display: block; }
+    .lbl-gold { color: var(--gold); }
+    .ttl { font-family: var(--serif); font-size: clamp(2.4rem,4.5vw,4rem); font-weight: 300; font-style: italic; line-height: 1.07; }
+    .rule { width: 44px; height: 1px; background: var(--gold); margin: 1.4rem 0 1.8rem; }
+    .body-t { font-size: .9rem; font-weight: 300; line-height: 1.88; }
+    .arrow-svg { width: 12px; height: 12px; }
+
+    /* ── S01 ABERTURA ────────────────────── */
+    .s-abertura {
+      position: relative; z-index: 2; background: var(--cream);
+      display: grid; grid-template-columns: 1fr 1fr; padding-top: 55px;
+    }
+    .s-abertura::after {
+      content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+      height: 100px; background: var(--navy);
+      clip-path: polygon(0 100%, 100% 28%, 100% 100%); z-index: 3;
+    }
+    .ab-photo {
+      min-height: 580px; overflow: hidden;
+      background: #4A3010 url('imagens/img-lobby.png') center/cover no-repeat;
+    }
+    .ab-text { padding: clamp(4rem,8vw,7rem) clamp(2rem,5vw,5rem) clamp(5rem,9vw,9rem); display: flex; flex-direction: column; justify-content: center; }
+    .ab-text .ttl { color: var(--navy); margin-top: .8rem; }
+    .ab-text .body-t { color: var(--muted); max-width: 460px; }
+
+    /* ── S02 SUÍTES ──────────────────────── */
+    .s-suites {
+      position: relative; z-index: 2; background: var(--navy);
+      display: grid; grid-template-columns: 1fr 1fr;
+    }
+    .s-suites::after {
+      content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+      height: 100px; background: var(--warm);
+      clip-path: polygon(0 38%, 100% 100%, 0 100%); z-index: 3;
+    }
+    .su-text { padding: clamp(4rem,8vw,8rem) clamp(2rem,5vw,5rem); display: flex; flex-direction: column; justify-content: center; }
+    .su-text .ttl { color: #fff; margin-top: .8rem; }
+    .su-text .body-t { color: rgba(255,255,255,.66); max-width: 460px; }
+    .bq { margin: 1.8rem 0; padding: 1.4rem 1.5rem; border-left: 2px solid var(--gold); background: rgba(201,151,59,.07); }
+    .bq p { font-family: var(--serif); font-size: 1.1rem; font-style: italic; color: rgba(255,255,255,.82); line-height: 1.5; }
+    .feat-list { display: flex; flex-direction: column; gap: .7rem; margin-top: .5rem; }
+    .feat { display: flex; align-items: center; gap: 1rem; font-size: .78rem; font-weight: 300; color: rgba(255,255,255,.7); }
+    .feat-n { font-size: .58rem; font-weight: 500; letter-spacing: .22em; color: var(--gold); min-width: 22px; }
+    .su-photo {
+      min-height: 580px; overflow: hidden; position: relative;
+      background: #7A4A18 url('imagens/img-suites.png') center/cover no-repeat;
+    }
+
+    /* ── S03 SPA ─────────────────────────── */
+    .s-spa {
+      position: relative; z-index: 2; background: var(--warm);
+      display: grid; grid-template-columns: 1fr 1fr; padding-top: 55px;
+    }
+    .s-spa::after {
+      content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+      height: 100px; background: #0B1620;
+      clip-path: polygon(0 100%, 100% 42%, 100% 100%); z-index: 3;
+    }
+    .sp-photo {
+      min-height: 560px; overflow: hidden;
+      background: #5C2808 url('imagens/img-spa.png') center/cover no-repeat;
+    }
+    .sp-text { padding: clamp(4rem,8vw,8rem) clamp(2rem,5vw,5rem) clamp(5rem,9vw,9rem); display: flex; flex-direction: column; justify-content: center; }
+    .sp-text .ttl { color: var(--navy); margin-top: .8rem; }
+    .sp-text .body-t { color: var(--muted); max-width: 460px; }
+    .chips { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: 1.6rem; }
+    .chip { font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: var(--navy); background: var(--cream); border: 1px solid var(--cream-dk); padding: .38rem .9rem; }
+    .link-gold { display: inline-flex; align-items: center; gap: .6rem; font-size: .7rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); text-decoration: none; border-bottom: 1px solid var(--gold); padding-bottom: 2px; margin-top: 2rem; width: fit-content; transition: opacity .3s; }
+    .link-gold:hover { opacity: .65; }
+
+    /* ── S04 RESTAURANTE ──────────────────── */
+    .s-rest {
+      position: relative; z-index: 2; min-height: 72vh;
+      display: flex; align-items: flex-end; padding-top: 55px;
+      background-color: #5A2E06;
+      background-image:
+        linear-gradient(180deg, rgba(11,22,32,.32) 0%, rgba(11,22,32,.65) 100%),
+        url('imagens/img-restaurante.png');
+      background-size: cover; background-position: center 40%;
+    }
+    .s-rest::after {
+      content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+      height: 100px; background: var(--navy);
+      clip-path: polygon(0 100%, 100% 28%, 100% 100%); z-index: 3;
+    }
+    .rest-inner { position: relative; z-index: 2; width: 100%; padding: 0 5vw clamp(3rem,6vw,6rem); display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: end; }
+    .rest-inner .ttl { color: #fff; margin-top: .8rem; }
+    .rest-inner .body-t { color: rgba(255,255,255,.7); }
+
+    /* ── S05 ECOSSISTEMA ──────────────────── */
+    .s-eco {
+      position: relative; z-index: 2; background: var(--navy);
+      padding: clamp(5rem,10vw,10rem) 5vw clamp(4rem,8vw,8rem);
+    }
+    .s-eco::after {
+      content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+      height: 100px; background: #0B1620;
+      clip-path: polygon(0 55%, 100% 100%, 0 100%); z-index: 3;
+    }
+    .eco-head { text-align: center; margin-bottom: 4.5rem; }
+    .eco-head .ttl { color: #fff; }
+    .eco-head p { font-size: .88rem; font-weight: 300; line-height: 1.8; color: rgba(255,255,255,.55); max-width: 540px; margin: 1.2rem auto 0; }
+    .eco-rule { width: 44px; height: 1px; background: var(--gold); margin: 1.2rem auto; }
+    .eco-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+    .eco-card { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07); padding: 2.8rem 2.2rem; display: flex; flex-direction: column; transition: background .35s, border-color .35s; }
+    .eco-card:hover, .eco-card.current { background: rgba(201,151,59,.07); border-color: rgba(201,151,59,.3); }
+    .eco-logo { margin-bottom: 1.6rem; }
+    .eco-logo img { height: 60px; width: auto; max-width: 140px; object-fit: contain; }
+    .eco-sub { font-size: .58rem; letter-spacing: .3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.3rem; display: block; }
+    .eco-card p { font-size: .84rem; font-weight: 300; line-height: 1.78; color: rgba(255,255,255,.58); flex: 1; margin-bottom: 1.8rem; }
+    .eco-link { font-size: .62rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); text-decoration: none; display: inline-flex; align-items: center; gap: .5rem; transition: gap .3s; }
+    .eco-link:hover { gap: .85rem; }
+    .eco-close { text-align: center; margin-top: 4rem; padding-top: 3.5rem; border-top: 1px solid rgba(255,255,255,.07); }
+    .eco-close p { font-family: var(--serif); font-size: clamp(1.1rem,2.2vw,1.55rem); font-style: italic; color: rgba(255,255,255,.52); line-height: 1.5; }
+    .eco-close p strong { color: rgba(255,255,255,.82); font-weight: 400; }
+
+    /* ── S06 COWORKING ────────────────────── */
+    .s-cw {
+      position: relative; z-index: 2; min-height: 62vh;
+      display: flex; align-items: center; padding-top: 55px;
+      background-color: #5A3A10;
+      background-image:
+        linear-gradient(90deg, rgba(11,22,32,.93) 0%, rgba(11,22,32,.62) 55%, rgba(11,22,32,.2) 100%),
+        url('imagens/img-coworking.png');
+      background-size: cover; background-position: center;
+    }
+    .s-cw::after {
+      content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+      height: 100px; background: var(--cream);
+      clip-path: polygon(0 100%, 100% 48%, 100% 100%); z-index: 3;
+    }
+    .cw-inner { position: relative; z-index: 2; max-width: 580px; padding: clamp(3rem,7vw,7rem) 5vw; }
+    .cw-logo { margin-bottom: 1.6rem; }
+    .cw-logo img { height: 55px; width: auto; max-width: 200px; object-fit: contain; }
+    .cw-inner .ttl { color: #fff; }
+    .cw-inner .body-t { color: rgba(255,255,255,.68); margin-top: 1rem; margin-bottom: 2.5rem; }
+
+    /* ── S07 FORMULÁRIO ───────────────────── */
+    .s-form {
+      position: relative; z-index: 2; background: var(--cream);
+      padding: clamp(5rem,10vw,10rem) 5vw clamp(5rem,10vw,9rem);
+    }
+    .s-form::after {
+      content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+      height: 100px; background: #070E16;
+      clip-path: polygon(0 100%, 100% 42%, 100% 100%); z-index: 3;
+    }
+    .form-wrap { max-width: 860px; margin: 0 auto; }
+    .form-head { text-align: center; margin-bottom: 3.5rem; }
+    .form-head .ttl { color: var(--navy); }
+    .form-head p { font-size: .9rem; font-weight: 300; line-height: 1.8; color: var(--muted); margin-top: 1rem; }
+    .form-head .rule { margin: 1.2rem auto; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+    .form-grid .full { grid-column: 1 / -1; }
+    .field { display: flex; flex-direction: column; gap: .4rem; }
+    .field label { font-size: .62rem; font-weight: 500; letter-spacing: .28em; text-transform: uppercase; color: var(--navy); }
+    .field input, .field select, .field textarea { font-family: var(--sans); font-size: .88rem; font-weight: 300; color: var(--text); background: var(--warm); border: 1px solid var(--cream-dk); padding: .9rem 1rem; outline: none; transition: border-color .3s; width: 100%; appearance: none; -webkit-appearance: none; }
+    .field input::placeholder, .field textarea::placeholder { color: rgba(0,0,0,.35); }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold); }
+    .field textarea { min-height: 120px; resize: vertical; }
+    .sel-wrap { position: relative; }
+    .sel-wrap::after { content: ''; position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid var(--gold); pointer-events: none; }
+    .form-foot { text-align: center; margin-top: 2rem; }
+    .form-foot button { font-family: var(--sans); font-size: .7rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--navy); background: var(--gold-lt); border: none; padding: 1.1rem 3rem; cursor: pointer; transition: background .3s, transform .25s; }
+    .form-foot button:hover { background: var(--gold-pale); transform: translateY(-1px); }
+    .form-note { text-align: center; margin-top: 1.2rem; font-size: .7rem; font-weight: 300; color: rgba(0,0,0,.38); }
+    .form-note a { color: var(--gold); text-decoration: none; }
+    #form-ok { display: none; text-align: center; padding: 3rem; background: var(--warm); border: 1px solid var(--cream-dk); }
+    #form-ok h3 { font-family: var(--serif); font-size: 1.8rem; font-style: italic; color: var(--navy); margin-bottom: .8rem; }
+    #form-ok p { font-size: .88rem; font-weight: 300; color: var(--muted); }
+
+    /* ── FOOTER ──────────────────────────── */
+    footer { background: #070E16; padding: clamp(4rem,8vw,6rem) 5vw clamp(2rem,4vw,3rem); position: relative; z-index: 2; }
+    .ft-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 3rem; padding-bottom: 3.5rem; border-bottom: 1px solid rgba(255,255,255,.06); }
+    .ft-brand img { width: 140px; height: auto; margin-bottom: 1.2rem; display: block; }
+    .ft-brand p { font-size: .8rem; font-weight: 300; line-height: 1.75; color: rgba(255,255,255,.4); max-width: 250px; }
+    .ft-col h4 { font-size: .58rem; font-weight: 500; letter-spacing: .35em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.4rem; }
+    .ft-col ul { list-style: none; display: flex; flex-direction: column; gap: .65rem; }
+    .ft-col ul li a { font-size: .8rem; font-weight: 300; color: rgba(255,255,255,.45); text-decoration: none; transition: color .3s; }
+    .ft-col ul li a:hover { color: var(--gold-lt); }
+    .ft-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding-top: 2.5rem; }
+    .ft-bottom p { font-size: .68rem; font-weight: 300; color: rgba(255,255,255,.25); }
+    .ft-socials { display: flex; gap: 1.5rem; }
+    .ft-socials a { font-size: .62rem; font-weight: 400; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.4); text-decoration: none; transition: color .3s; }
+    .ft-socials a:hover { color: var(--gold-lt); }
+
+    /* ── REVEAL ──────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: .1s; } .d2 { transition-delay: .22s; } .d3 { transition-delay: .34s; }
+
+    /* ── TABLET ──────────────────────────── */
+    @media (max-width: 920px) {
+      .s-abertura, .s-suites, .s-spa { grid-template-columns: 1fr; }
+      .ab-photo { min-height: 60vw; }
+      .ab-text { padding: 3rem 7vw 5rem; }
+      .sp-photo { min-height: 60vw; }
+      .sp-text { padding: 3rem 7vw 5rem; }
+      .su-photo { min-height: 60vw; order: 1; }
+      .su-text { order: 0; padding: 3rem 7vw 4rem; }
+      .rest-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+      .eco-grid { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-grid .full { grid-column: 1; }
+      .ft-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .nav-cta { font-size: .6rem; padding: .5rem 1.1rem; }
+    }
+
+    /* ── MOBILE ──────────────────────────── */
+    @media (max-width: 640px) {
+      #nav { height: 60px; padding: 0 5vw; }
+      .nav-brand img { width: 110px; }
+      .nav-cta { display: none; }
+      .s-hero { min-height: 100svh; background-position: center center; }
+      .hero-inner { padding: 0 6vw 12vw; }
+      .hero-h1 { font-size: clamp(2.6rem,10vw,3.8rem); margin-bottom: 1.2rem; }
+      .hero-sub { font-size: .68rem; letter-spacing: .2em; margin-bottom: 1.6rem; }
+      .pills { gap: .45rem; margin-bottom: 2rem; }
+      .pill { font-size: .56rem; padding: .32rem .75rem; }
+      .btns { flex-direction: column; gap: .75rem; }
+      .btn-gold, .btn-ghost { width: 100%; justify-content: center; font-size: .68rem; padding: .9rem 1.5rem; }
+      .s-hero::after { height: 70px; }
+      .ab-text, .sp-text { padding: 2.5rem 6vw 4rem; }
+      .su-text { padding: 2.5rem 6vw 3.5rem; }
+      .cw-inner { padding: 3rem 6vw 5rem; }
+      .s-eco { padding: 3.5rem 6vw 4rem; }
+      .s-form { padding: 3.5rem 6vw 5rem; }
+      .ab-photo, .sp-photo, .su-photo { min-height: 56vw; }
+      .ttl { font-size: clamp(2rem,8vw,2.8rem); }
+      .s-abertura::after, .s-suites::after, .s-spa::after,
+      .s-rest::after, .s-eco::after, .s-cw::after, .s-form::after { height: 60px; }
+      .s-hero::after { height: 55px; }
+      .rest-inner { padding: 0 6vw 4rem; }
+      .eco-head { margin-bottom: 2.5rem; }
+      .eco-card { padding: 2rem 1.6rem; }
+      .cw-inner .btns { flex-direction: column; }
+      .cw-inner .btn-gold { width: 100%; justify-content: center; }
+      .ft-grid { grid-template-columns: 1fr; gap: 2rem; padding-bottom: 2.5rem; }
+      .ft-bottom { flex-direction: column; align-items: flex-start; gap: .75rem; }
+      .form-foot button { width: 100%; }
+    }
+    @media (max-width: 380px) {
+      .nav-brand img { width: 95px; }
+      .hero-h1 { font-size: 2.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-brand">
+    <img src="imagens/logo-resorts-white.png" alt="SAL OCEANO Resorts">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#abertura">O Projeto</a></li>
+    <li><a href="#suites">Suítes</a></li>
+    <li><a href="#spa">Spa</a></li>
+    <li><a href="#restaurante">Restaurante</a></li>
+    <li><a href="#ecossistema">Ecossistema</a></li>
+    <li><a href="#contato">Investir</a></li>
+  </ul>
+  <a href="#contato" class="nav-cta">Faça parte</a>
+</nav>
+
+<!-- HERO -->
+<section class="s-hero" id="hero">
+  <div class="hero-inner">
+    <h1 class="hero-h1 reveal">Hospitalidade<br>inspirada pelo<br>oceano.</h1>
+    <p class="hero-sub reveal d1">Resort à beira-mar · Arquitetura costeira<br>Spa SAL OCEANO Aromas · Pôr do sol em cada suíte</p>
+    <div class="pills reveal d2">
+      <span class="pill">Resort à beira-mar</span>
+      <span class="pill">Todas as suítes voltadas para o pôr do sol</span>
+      <span class="pill">Arquitetura com pegada ecológica</span>
+      <span class="pill">Hospitalidade sensorial</span>
+    </div>
+    <div class="btns reveal d2">
+      <a href="#contato" class="btn-gold">Conhecer a oportunidade de investimento <svg class="arrow-svg" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#abertura" class="btn-ghost">Explorar o projeto</a>
+    </div>
+  </div>
+</section>
+
+<!-- S01 ABERTURA -->
+<section class="s-abertura" id="abertura">
+  <div class="ab-photo" aria-hidden="true"></div>
+  <div class="ab-text">
+    <span class="lbl lbl-gold reveal">01 — Hospitalidade</span>
+    <h2 class="ttl reveal d1">Um refúgio<br>inspirado pelo<br>oceano.</h2>
+    <div class="rule reveal d2"></div>
+    <p class="body-t reveal d2" style="color:var(--muted)">O SAL OCEANO Resorts nasce como uma extensão natural do universo SAL OCEANO: um projeto de resort à beira-mar, pensado para unir hospedagem, bem-estar, natureza e experiências sensoriais em um mesmo destino.</p>
+    <p class="body-t reveal d2" style="color:var(--muted);margin-top:1rem">O empreendimento será concebido para valorizar a relação com o mar, a luz natural, a arquitetura costeira e uma experiência de permanência que começa no primeiro olhar. Um projeto em desenvolvimento, sem data prevista para lançamento.</p>
+  </div>
+</section>
+
+<!-- S02 SUÍTES -->
+<section class="s-suites" id="suites">
+  <div class="su-text">
+    <span class="lbl lbl-gold reveal">02 — Acomodações</span>
+    <h2 class="ttl reveal d1" style="color:#fff">Suítes amplas,<br>sacadas privativas<br>e o pôr do sol.</h2>
+    <div class="rule reveal d2"></div>
+    <p class="body-t reveal d2" style="color:rgba(255,255,255,.66)">Um dos pilares do SAL OCEANO Resorts será a orientação das acomodações: todas as suítes, sem exceção, serão voltadas para o pôr do sol.</p>
+    <p class="body-t reveal d2" style="color:rgba(255,255,255,.66);margin-top:1rem">Suítes amplas, confortáveis e integradas à paisagem, com sacadas privativas que transformarão o fim de tarde em parte essencial da experiência.</p>
+    <div class="bq reveal d3"><p>Um refúgio onde cada fim de tarde fará parte da estadia.</p></div>
+    <div class="feat-list reveal d3">
+      <div class="feat"><span class="feat-n">01</span>Todas as suítes voltadas para o pôr do sol</div>
+      <div class="feat"><span class="feat-n">02</span>Sacadas privativas em cada acomodação</div>
+      <div class="feat"><span class="feat-n">03</span>Ambientes amplos, contemplativos e acolhedores</div>
+      <div class="feat"><span class="feat-n">04</span>Vista direta para o horizonte e o oceano</div>
+    </div>
+  </div>
+  <div class="su-photo" aria-hidden="true"></div>
+</section>
+
+<!-- S03 SPA -->
+<section class="s-spa" id="spa">
+  <div class="sp-photo" aria-hidden="true"></div>
+  <div class="sp-text">
+    <span class="lbl lbl-gold reveal">03 — Experiência Sensorial</span>
+    <h2 class="ttl reveal d1" style="color:var(--navy)">Bem-estar com<br>assinatura sensorial<br>SAL OCEANO.</h2>
+    <div class="rule reveal d2"></div>
+    <p class="body-t reveal d2" style="color:var(--muted)">O spa do SAL OCEANO Resorts será projetado como uma experiência conectada à linha SAL OCEANO Aromas: um espaço de pausa, cuidado e reconexão, onde fragrâncias, texturas, rituais e elementos naturais constroem uma atmosfera de relaxamento premium.</p>
+    <p class="body-t reveal d2" style="color:var(--muted);margin-top:1rem">Do quarto ao spa, da chegada ao descanso — uma identidade sensorial presente em cada detalhe da hospedagem.</p>
+    <div class="chips reveal d3">
+      <span class="chip">Spa & Rituais</span>
+      <span class="chip">SAL OCEANO Aromas</span>
+      <span class="chip">Amenities Premium</span>
+      <span class="chip">Velas & Difusores</span>
+      <span class="chip">Roupões Waffle</span>
+      <span class="chip">Cosméticos de Cuidado</span>
+    </div>
+    <a href="https://saloceano.com.br" target="_blank" rel="noopener" class="link-gold reveal d3">Conheça SAL OCEANO Aromas <svg class="arrow-svg" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+  </div>
+</section>
+
+<!-- S04 RESTAURANTE -->
+<section class="s-rest" id="restaurante">
+  <div class="rest-inner">
+    <div>
+      <span class="lbl lbl-gold reveal">04 — Gastronomia</span>
+      <h2 class="ttl reveal d1" style="color:#fff">O oceano<br>à mesa ao<br>entardecer.</h2>
+      <div class="rule reveal d2"></div>
+    </div>
+    <div class="reveal d2">
+      <p class="body-t" style="color:rgba(255,255,255,.7)">O restaurante do SAL OCEANO Resorts será concebido como uma extensão da paisagem — uma estrutura aberta voltada ao mar, onde a gastronomia dialoga com o vento, a luz e a sensorialidade da marca.</p>
+      <p class="body-t" style="color:rgba(255,255,255,.7);margin-top:1rem">Da culinária aos aromas e à trilha sonora, cada refeição será uma experiência composta com a mesma atenção e sofisticação que define a identidade SAL OCEANO.</p>
+    </div>
+  </div>
+</section>
+
+<!-- S05 ECOSSISTEMA -->
+<section class="s-eco" id="ecossistema">
+  <div class="eco-head">
+    <span class="lbl lbl-gold reveal" style="display:block;margin-bottom:1rem">Um universo em expansão</span>
+    <h2 class="ttl reveal d1" style="color:#fff">Um ecossistema<br>inspirado pelo mar.</h2>
+    <div class="eco-rule reveal d2"></div>
+    <p class="reveal d2">O SAL OCEANO Resorts faz parte de um ecossistema maior — hospitalidade, aromas, bem-estar e espaços de trabalho com uma mesma essência.</p>
+  </div>
+  <div class="eco-grid">
+
+    <div class="eco-card current reveal">
+      <div class="eco-logo">
+        <img src="imagens/logo-resorts-white.png" alt="SAL OCEANO Resorts">
+      </div>
+      <span class="eco-sub">Hospitalidade à beira-mar</span>
+      <p>Hospedagem de luxo à beira-mar com suítes voltadas para o pôr do sol, spa, restaurante, experiências sensoriais e arquitetura com pegada ecológica.</p>
+    </div>
+
+    <div class="eco-card reveal d1">
+      <div class="eco-logo">
+        <img src="imagens/logo-aromas-transp.png" alt="SAL OCEANO Aromas">
+      </div>
+      <span class="eco-sub">Fragrâncias · Cosméticos · Spa</span>
+      <p>Fragrâncias, velas, difusores, águas perfumadas, amenities e produtos de cuidado criados para levar a sensação do oceano para hotéis e ambientes.</p>
+      <a href="https://saloceano.com.br" target="_blank" rel="noopener" class="eco-link">Conhecer Aromas <svg class="arrow-svg" viewBox="0 0 11 11" fill="none"><path d="M2 5.5h7M6 2.5l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+
+    <div class="eco-card reveal d2">
+      <div class="eco-logo">
+        <img src="imagens/logo-coworking-transp.png" alt="SAL OCEANO Coworking">
+      </div>
+      <span class="eco-sub">Espaços de trabalho</span>
+      <p>Espaços de trabalho pensados para inspirar foco, criação e conexão — nos resorts à beira-mar e em metrópoles, levando a essência SAL OCEANO ao universo corporativo.</p>
+      <a href="https://saloceanocoworking.com.br" target="_blank" rel="noopener" class="eco-link">Conhecer Coworking <svg class="arrow-svg" viewBox="0 0 11 11" fill="none"><path d="M2 5.5h7M6 2.5l3 3-3 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+
+  </div>
+  <div class="eco-close reveal">
+    <p><strong>Três frentes. Uma mesma essência.</strong><br>Hospitalidade, sensorialidade e espaços inspirados pelo oceano.</p>
+  </div>
+</section>
+
+<!-- S06 COWORKING -->
+<section class="s-cw" id="coworking">
+  <div class="cw-inner">
+    <div class="cw-logo reveal">
+      <img src="imagens/logo-coworking-transp.png" alt="SAL OCEANO Coworking">
+    </div>
+    <h2 class="ttl reveal d1" style="color:#fff">Trabalhe de onde<br>o horizonte inspira.</h2>
+    <div class="rule reveal d2"></div>
+    <p class="body-t reveal d2" style="color:rgba(255,255,255,.68)">O SAL OCEANO Coworking nascerá dentro dos resorts e também nas metrópoles. Espaços projetados com a essência da marca: foco, criação, conexão e a sensação permanente de estar à beira-mar.</p>
+    <div class="btns reveal d2" style="margin-top:2.5rem">
+      <a href="https://saloceanocoworking.com.br" target="_blank" rel="noopener" class="btn-gold">Conhecer SAL OCEANO Coworking <svg class="arrow-svg" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- S07 FORMULÁRIO -->
+<section class="s-form" id="contato">
+  <div class="form-wrap">
+    <div class="form-head">
+      <span class="lbl lbl-gold reveal" style="display:block;margin-bottom:1rem">Investimento & Parcerias</span>
+      <h2 class="ttl reveal d1" style="color:var(--navy)">Faça parte<br>deste projeto.</h2>
+      <div class="rule reveal d2"></div>
+      <p class="reveal d2">Preencha o formulário abaixo e nossa equipe entrará em contato.<br>Todas as informações são tratadas com total confidencialidade.</p>
+    </div>
+    <form id="inv-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="reveal d2">
+      <div class="form-grid">
+        <div class="field">
+          <label for="nome">Nome completo *</label>
+          <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+        </div>
+        <div class="field">
+          <label for="email">E-mail *</label>
+          <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+        </div>
+        <div class="field">
+          <label for="telefone">Telefone / WhatsApp</label>
+          <input type="tel" id="telefone" name="telefone" placeholder="+55 (11) 00000-0000">
+        </div>
+        <div class="field">
+          <label for="empresa">Empresa / Fundo</label>
+          <input type="text" id="empresa" name="empresa" placeholder="Opcional">
+        </div>
+        <div class="field full">
+          <label for="interesse">Tipo de interesse *</label>
+          <div class="sel-wrap">
+            <select id="interesse" name="interesse" required>
+              <option value="" disabled selected>Selecione</option>
+              <option>Investidor</option>
+              <option>Parceiro estratégico</option>
+              <option>Parceiro hoteleiro</option>
+              <option>Imprensa</option>
+              <option>Outro</option>
+            </select>
+          </div>
+        </div>
+        <div class="field full">
+          <label for="msg">Mensagem</label>
+          <textarea id="msg" name="mensagem" placeholder="Conte-nos sobre sua proposta, expectativas ou dúvidas."></textarea>
+        </div>
+        <input type="hidden" name="_subject" value="Novo contato — SAL OCEANO Resorts">
+      </div>
+      <div class="form-foot">
+        <button type="submit">Enviar mensagem &nbsp;→</button>
+      </div>
+    </form>
+    <div id="form-ok">
+      <h3>Mensagem recebida.</h3>
+      <p>Nossa equipe entrará em contato em breve.<br>Obrigado pelo interesse no SAL OCEANO Resorts.</p>
+    </div>
+    <p class="form-note" style="margin-top:1.5rem">
+      Ou fale diretamente: <a href="mailto:investidores@saloceano.com.br">investidores@saloceano.com.br</a>
+      &nbsp;·&nbsp; <a href="https://wa.me/5511932642307" target="_blank">WhatsApp +55 (11) 93264-2307</a>
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-grid">
+    <div class="ft-brand">
+      <a href="#"><img src="imagens/logo-resorts-white.png" alt="SAL OCEANO Resorts"></a>
+      <p>Um projeto de hospitalidade à beira-mar com experiências sensoriais e arquitetura inspirada pelo oceano. Parte do ecossistema SAL OCEANO.</p>
+    </div>
+    <div class="ft-col">
+      <h4>O Projeto</h4>
+      <ul>
+        <li><a href="#abertura">Hospitalidade</a></li>
+        <li><a href="#suites">Acomodações</a></li>
+        <li><a href="#spa">Spa & Aromas</a></li>
+        <li><a href="#restaurante">Restaurante</a></li>
+        <li><a href="#ecossistema">Ecossistema</a></li>
+        <li><a href="#coworking">Coworking</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>Ecossistema</h4>
+      <ul>
+        <li><a href="#" style="color:rgba(201,151,59,.78)">SAL OCEANO Resorts</a></li>
+        <li><a href="https://saloceano.com.br" target="_blank" rel="noopener">SAL OCEANO Aromas</a></li>
+        <li><a href="https://saloceanocoworking.com.br" target="_blank" rel="noopener">SAL OCEANO Coworking</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>Contato</h4>
+      <ul>
+        <li><a href="mailto:investidores@saloceano.com.br">investidores@saloceano.com.br</a></li>
+        <li><a href="mailto:contato@saloceano.com.br">contato@saloceano.com.br</a></li>
+        <li><a href="https://wa.me/5511932642307" target="_blank" rel="noopener">+55 (11) 93264-2307</a></li>
+        <li><a href="https://instagram.com/saloceanoaromas" target="_blank" rel="noopener">@saloceanoaromas</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <p>© 2026 SAL OCEANO Resorts. Todos os direitos reservados.</p>
+    <div class="ft-socials">
+      <a href="https://instagram.com/saloceanoaromas" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://wa.me/5511932642307" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="#contato">Investidores</a>
+    </div>
+    <p>saloceano.com.br</p>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  const tick = () => nav.classList.toggle('scrolled', scrollY > 60);
+  window.addEventListener('scroll', tick, {passive:true});
+  tick();
+
+  const reveals = document.querySelectorAll('.reveal');
+  const ro = new IntersectionObserver(es => {
+    es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, {threshold:.1, rootMargin:'0px 0px -38px 0px'});
+  reveals.forEach(el => ro.observe(el));
+
+  setTimeout(() => {
+    document.querySelectorAll('.s-hero .reveal').forEach((el,i) =>
+      setTimeout(() => el.classList.add('in'), 300 + i*130));
+  }, 150);
+
+  const form = document.getElementById('inv-form');
+  const ok = document.getElementById('form-ok');
+  form.addEventListener('submit', async e => {
+    if (form.action.includes('YOUR_FORM_ID')) return;
+    e.preventDefault();
+    try {
+      const r = await fetch(form.action, {method:'POST', body:new FormData(form), headers:{Accept:'application/json'}});
+      if (r.ok) { form.style.display='none'; ok.style.display='block'; }
+    } catch(err) {}
+  });
+</script>
+</body>
+</html>
