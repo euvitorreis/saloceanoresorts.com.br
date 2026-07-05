@@ -291,6 +291,46 @@
     .ft-socials a { font-size: .62rem; font-weight: 400; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.4); text-decoration: none; transition: color .3s; }
     .ft-socials a:hover { color: var(--gold-lt); }
 
+    /* ── LEGAL FOOTER ────────────────────── */
+    .ft-legal { display: flex; align-items: center; gap: .7rem; }
+    .ft-legal a { font-size: .65rem; font-weight: 300; color: rgba(255,255,255,.3); text-decoration: none; transition: color .3s; }
+    .ft-legal a:hover { color: var(--gold-lt); }
+    .ft-legal span { color: rgba(255,255,255,.18); font-size: .65rem; }
+
+    /* ── COOKIE BANNER ───────────────────── */
+    #cookie-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;
+      background: rgba(7,14,22,.96); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+      gap: 1rem; padding: 1.1rem 5vw;
+      border-top: 1px solid rgba(255,255,255,.07);
+      transform: translateY(0); transition: transform .4s ease;
+    }
+    #cookie-bar.hidden { transform: translateY(110%); pointer-events: none; }
+    #cookie-bar p { font-size: .78rem; font-weight: 300; color: rgba(255,255,255,.65); line-height: 1.6; flex: 1; min-width: 200px; max-width: 700px; }
+    #cookie-bar p a { color: var(--gold-lt); text-decoration: none; }
+    #cookie-bar p a:hover { text-decoration: underline; }
+    .cookie-btns { display: flex; gap: .75rem; flex-shrink: 0; }
+    #cookie-reject {
+      font-family: var(--sans); font-size: .65rem; font-weight: 500; letter-spacing: .15em;
+      text-transform: uppercase; color: rgba(255,255,255,.7); background: transparent;
+      border: 1px solid rgba(255,255,255,.25); padding: .6rem 1.4rem; cursor: pointer;
+      transition: border-color .3s, color .3s;
+    }
+    #cookie-reject:hover { border-color: rgba(255,255,255,.55); color: #fff; }
+    #cookie-accept {
+      font-family: var(--sans); font-size: .65rem; font-weight: 500; letter-spacing: .15em;
+      text-transform: uppercase; color: var(--navy); background: var(--gold-lt);
+      border: none; padding: .6rem 1.4rem; cursor: pointer; transition: background .3s;
+    }
+    #cookie-accept:hover { background: var(--gold-pale); }
+    @media (max-width: 640px) {
+      #cookie-bar { flex-direction: column; align-items: flex-start; padding: 1.2rem 6vw; }
+      .cookie-btns { width: 100%; }
+      #cookie-reject, #cookie-accept { flex: 1; text-align: center; }
+      .ft-legal { flex-wrap: wrap; }
+    }
+
     /* ── REVEAL ──────────────────────────── */
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s ease; }
     .reveal.in { opacity: 1; transform: translateY(0); }
@@ -617,9 +657,22 @@
       <a href="https://wa.me/5511932642307" target="_blank" rel="noopener">WhatsApp</a>
       <a href="#contato">Investidores</a>
     </div>
-    <p>saloceano.com.br</p>
+    <div class="ft-legal">
+      <a href="privacidade.html">Termos de Uso &amp; Privacidade</a>
+      <span>·</span>
+      <a href="privacidade.html#cookies">Política de Cookies</a>
+    </div>
   </div>
 </footer>
+
+<!-- COOKIE BANNER -->
+<div id="cookie-bar" role="dialog" aria-live="polite" aria-label="Aviso de cookies">
+  <p>A sua privacidade é muito importante para nós. Usamos cookies para garantir a melhor experiência, analisar visitas e, quando autorizado, personalizar conteúdos e anúncios. <a href="privacidade.html#cookies">Saiba mais.</a></p>
+  <div class="cookie-btns">
+    <button id="cookie-reject">Rejeitar não essenciais</button>
+    <button id="cookie-accept">Aceitar todos</button>
+  </div>
+</div>
 
 <script>
   const nav = document.getElementById('nav');
@@ -637,6 +690,19 @@
     document.querySelectorAll('.s-hero .reveal').forEach((el,i) =>
       setTimeout(() => el.classList.add('in'), 300 + i*130));
   }, 150);
+
+  // Cookie banner
+  const bar = document.getElementById('cookie-bar');
+  const consent = localStorage.getItem('so-cookie-consent');
+  if (consent) bar.classList.add('hidden');
+  document.getElementById('cookie-accept').addEventListener('click', () => {
+    localStorage.setItem('so-cookie-consent', 'all');
+    bar.classList.add('hidden');
+  });
+  document.getElementById('cookie-reject').addEventListener('click', () => {
+    localStorage.setItem('so-cookie-consent', 'essential');
+    bar.classList.add('hidden');
+  });
 
   const form = document.getElementById('inv-form');
   const ok = document.getElementById('form-ok');
